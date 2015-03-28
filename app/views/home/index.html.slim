@@ -1,0 +1,99 @@
+#intro.height-page.table
+  .jumbotron.table-cell
+    .container
+      h1 CacheStork
+      p Bringing the good bits of online education to offline communities.
+    
+#donate.height-page.table
+  .table-cell
+    .container
+      .row
+        .col-xs-6.col-xs-offset-3
+          h1 Donate to our cause!
+          h3 Contribute to helping other students learn through readily available videos! The funds will be used to purchase storage space and ship them to the offline communities.
+          = form_tag "/checkout", method: :post
+            input.form-control type="number" min="0.01" step="0.01" max="2500" placeholder="Amount e.g. 10.00" name="amount"
+            br
+            #dropin
+            input.btn.btn-primary.pull-right type="submit" value=("Donate") /
+
+#request.height-page.table
+  .table-cell
+    .container
+      - if @requests.present?
+        .row style="padding-top: 60px;"
+          - @requests.each do |request|
+            .col-xs-4 style="text-align: center;  "
+              = filepicker_image_tag request.filepicker_url, { w: 160, h: 160, fit: 'clip'}, {class: "img-circle"}
+              p style="margin-top:15px"
+                = "I am #{request.name} from #{request.high_school}, #{request.country_name}. My interests are in "
+                = request.categories.map {|c| c.title}.join(", ")
+                = "."
+        div style="margin-bottom: 40px;"
+      .row
+        .col-xs-6.col-xs-offset-3
+          h2 Are you a school or teacher that needs our help?
+          h3 Tell us more about yourself and what you want to learn!
+          = simple_form_for(@request, html: { class: 'form-horizontal' }) do |f|
+            = f.input :name 
+            = f.input :high_school 
+            = f.input :country, as: :country 
+            = f.association :categories, {label: "Interests"}
+            .form-group
+              .col-xs-4 style="padding: 0;"
+                = f.filepicker_field :filepicker_url, {class: 'btn btn-info', button_text: "Upload an image of yourself here!"}
+            .clearfix
+            
+            .form-group
+              = f.button :submit, "Submit!"
+
+#playlists.height-page.table
+  .table-cell
+    .container
+      
+      .row.text-center
+        h1 Playlists
+      .row
+        .col-xs-6.col-xs-offset-3
+          h2 Want to contribute or help?
+          h3 Help us curate the playlists!
+
+          .panel.panel-primary
+            h5.panel-heading Do you think we need a new topic or interest?
+            .panel-body
+              .col-xs-12
+                = simple_form_for(@category, html: {class: 'form-horizontal'}) do |f| 
+                  = f.input :title, label: "Name of Topic"
+                  = f.button :submit, "Tell us!"
+
+      .row
+        - @categories.each do |category|
+          .col-xs-3
+            .panel.panel-success.collapsible href="#" style="cursor:pointer;"
+              h4.panel-heading = category.title
+              .panel-body.hidden
+                - category.videos.each do |vid|
+                  = link_to vid.url
+                    = image_tag vid.thumbnail_url, class: "thumbnail"
+                  p = vid.title
+
+                  
+
+
+
+
+
+
+javascript:
+  braintree.setup(
+    "#{ENV['braintree_js_key']}",
+    'dropin', {
+      container: 'dropin'
+    });
+
+  $(".collapsible").click(function(event) {
+    $(this).children(".panel-body").toggleClass("hidden");
+  });
+
+  $("#request_category_ids").select2({placeholder: "Select a few interests"});
+

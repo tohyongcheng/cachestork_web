@@ -1,0 +1,75 @@
+
+@import "bootstrap-sprockets";
+
+@import "bootswatch/lumen/variables";
+
+@import "bootstrap";
+
+@import "bootswatch/lumen/bootswatch";
+
+@import "select2";
+@import "select2-bootstrap";
+
+
+.text-center {
+  text-align: center;  
+}
+
+body {
+  background: #fff no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-top: 55px;
+}
+
+.height-page {
+  min-height: 100vh;
+}
+
+.hidden {
+  display: none;
+}
+
+.table {
+  display:table;
+  margin-bottom: 0;
+}
+
+.table-cell {
+  display:table-cell;
+  vertical-align: middle;
+}
+
+#intro {
+  background: asset-url("jumbo_bg.jpg") no-repeat top center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#request {
+  background: #E4F1FE no-repeat top center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#playlists {
+
+}
+
+.jumbotron {
+  border:none;
+  background: transparent;
+
+  color: #fff;
+}
+
+.font-white {
+  color: #ecf0f1;
+}
+
